@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NASA APOD</title>
+    <link rel="stylesheet" href="{% static 'css/apod.css' %}">
+</head>
+
+<body>
+    <header id="title-section">
+        <div id="title-wrapper">
+            <section>
+                <h1>NASA's <img alt="NASA's logo"
+                        src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg"></h1>
+                <h2>astronomy picture of the day</h2>
+            </section>
+        </div>
+    </header>
+
+    <div id="apod-section">
+        <div id="apod-wrapper">
+            {% if apod %}
+                <h2>{{ apod.title }}</h2>
+
+                {% if apod.url %}
+                    {% if apod.media_type == "image"%}
+                        <img src="{{ apod.url }}" alt="{{ apod.title }}">
+                    {% elif apod.media_type == "video" %}
+                        <h2>is video</h2>
+                    {% else %}
+                        <h2 style="color: red;">Error: unknown media type</h2>
+                    {% endif %}
+                {% else %}
+                    <h2 style="color: red;">Error (404): Image URL not found</h2>
+                {% endif %}
+                <!--  -->
+                {% if apod.date %}
+                    <h3>{{ apod.date }}</h3>
+                {% else %}
+                    <h3 style="color: red;">Error (404-ish): Date not found</h3>
+                {% endif %}
+                <!--  -->
+                {% if apod.explanation %}
+                    <h4>{{ apod.explanation }}</h4>
+                {% else %}
+                    <h3 style="color: red;"> Error (404-ish): Explanation not found</h3>
+                {% endif %}
+                <!--  -->
+                <label for="copyrt">Copyright:</label>
+                {% if apod.copyright %}
+                    <h4 id="copyrt">{{ apod.copyright }}</h4>
+                {% else %}
+                    <h4 id="copyrt" style="color: red;">Error: Copyright not found (pls dont sue)</h4>
+                {% endif %}
+                <!--  -->
+            <h4>Reload the page if you want to start over again! :)</h4>
+            {% elif error %}
+                <p style="color: red;">Error: {{ error }}</p>
+
+            {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="date" name="custom_apod_date">
+                    <br>
+                    <button type="submit" name="apod_btn">see picture</button>
+
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer>
+        <h6>project by <a href="https://github.com/dimapodgorny/NASA-APOD-API">dimapodgorny</a></h6>
+    </footer>
+
+    <div>
+        <button type="button" onclick="lotsofnasalogos()" id="cool-logo-button">lots of nasa logos</button>
+        <div id="alotofnasalogos" style="display: none; z-index: 2;"></div>
+        <script>
+            function lotsofnasalogos() {
+                let logo_tag = `<img alt="NASA's logo" src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo.svg">`;
+
+                let logo_container = document.getElementById("alotofnasalogos");
+                logo_container.style.display = "block";
+                logo_container.style.position = "absolute";
+                logo_container.style.top = 0
+                logo_container.style.left = 0
+                for (let i = 0; i < 1000; i++) {
+                    logo_container.innerHTML += logo_tag;
+                };
+            };
+        </script>
+    </div>
+    
+        
+
+</body>
+
+</html>
