@@ -1,3 +1,5 @@
+NOTE: I HAVE NOT TESTED THIS PROJECT ON ANY OTHER DEVICES, SO IT IS VERY POSSIBLE IT ONLY WORKS FOR ME AND NO ONE ELSE. IF YOU FIND OR EXPERIENCE ANY ISSUES PLEASE TELL ME
+
 # NASA APOD API Viewer using Django
 A simple web application built with Django that fetches and displays the Astronomy Picture of the Day (APOD) from NASA's official API. Users can view today's picture or select a specific date to explore past images.
 
