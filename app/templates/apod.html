@@ -28,7 +28,7 @@
                     {% if apod.media_type == "image"%}
                         <img src="{{ apod.url }}" alt="{{ apod.title }}">
                     {% elif apod.media_type == "video" %}
-                        <h2>is video</h2>
+                        <video controls src="{{ apod.url }}">cannot view video</video>
                     {% else %}
                         <h2 style="color: red;">Error: unknown media type</h2>
                     {% endif %}
